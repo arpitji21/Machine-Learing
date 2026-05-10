@@ -1,5 +1,4 @@
 import sys
-
 import pandas as pd
 import numpy as np
 from sklearn.impute import SimpleImputer
@@ -11,11 +10,12 @@ from src.exception import CustomException
 from src.logger import logging
 from dataclasses import dataclass
 import os
-from src.utils import save_object
+
 
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path:str = os.path.join('artifacts', 'preprocessor.pkl')
+
 
 class DataTransformation:
     def __init__(self):
@@ -92,11 +92,15 @@ class DataTransformation:
                 obj = preprocessing_object
 
             )
+
             return(
                 train_arr,
                 test_arr,
                 self.data_transformation_config.preprocessor_obj_file_path,
             )
+        
         except Exception as e:
             logging.info("Exception occured in initiate data transformation")
             raise CustomException(e, sys)
+        
+
